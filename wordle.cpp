@@ -36,7 +36,15 @@ std::set<std::string> wordle(
         continue;
       }
 
-    bool allLower = true;
+        bool allLower = true;
+        for (char ch : w) {
+          if (ch < 'a' || ch > 'z') {
+            allLower = false;
+            break;
+          }
+        }
+        if (!allLower)
+          continue;
 
       bool ok=true;
       for (int i=0;i<n;i++){
@@ -60,14 +68,14 @@ std::set<std::string> wordle(
           blankCount[w[i]]++;
       }
 
-    for (const auto& pair : flCount) {
-      char c = pair.first;
-      int required = pair.second;
-      if (blankCount[c]<required){
-        ok=false;
-        break;
+      for (const auto& pair : flCount) {
+        char c = pair.first;
+        int required = pair.second;
+        if (blankCount[c]<required){
+          ok=false;
+          break;
+        }
       }
-    }
 
       if (ok==false){
         continue;
