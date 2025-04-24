@@ -32,7 +32,7 @@ std::set<std::string> wordle(
     }
 
     for (auto const& w:dict){
-      if ((int)w.size!=n){
+      if ((int)w.size()!=n){
         continue;
       }
 
@@ -46,6 +46,11 @@ std::set<std::string> wordle(
       if (ok==false){
         continue;
       }
+      if (floating.empty()) {
+        results.insert(w);
+        continue;
+      }
+
 
       map<char,int> blankCount;
       for (int i=0;i<n;i++){
@@ -53,18 +58,20 @@ std::set<std::string> wordle(
           blankCount[w[i]]++;
       }
 
-      for (auto const& [c,n]:flCount){
-        if (blankCount[c]!=n){
-          ok=false;
-          break;
-        }
+    for (const auto& pair : flCount) {
+      char c = pair.first;
+      int required = pair.second;
+      if (blankCount[c]<required){
+        ok=false;
+        break;
       }
+    }
 
       if (ok==false){
         continue;
       }
 
-      results.insert(w)
+      results.insert(w);
 
     }
     return results;
