@@ -36,6 +36,8 @@ std::set<std::string> wordle(
         continue;
       }
 
+    bool allLower = true;
+
       bool ok=true;
       for (int i=0;i<n;i++){
         if (in[i]!='-'&&in[i]!=w[i]){
